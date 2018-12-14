@@ -41,6 +41,15 @@ export class App extends React.Component<{}, IState> {
         });
     }
 
+    public toggleDone(index: number): void {
+        let task: ITask[] = this.state.tasks.splice(index, 1);
+        task[0].completed = !task[0].completed;
+        const tasks: ITask[] = [...this.state.tasks, ...task];
+        this.setState({
+            tasks
+        });
+    }
+
     public onChange(e: any): void {
         this.setState({
             currentTask: e.target.value
@@ -53,6 +62,7 @@ export class App extends React.Component<{}, IState> {
                 <div key={task.id}>
                     <span>{task.value}</span>
                     <button onClick={() => this.deleteTask(task.id)}> Delete </button>
+                    <button onClick={() => this.toggleDone(index)}> Done </button>
                 </div>
             )
         })
